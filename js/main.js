@@ -19,18 +19,16 @@
     }
   });
 
-  require(["audio", "soundmanager"], function(Audio, SM) {
-    console.log(SM);
-    return SM.onready(function() {
-      var s;
-
-      console.log("Ready...");
-      s = SM.createSound({
-        id: 'sunday',
-        url: 'sounds/sunday.mp3'
-      });
-      s.play();
-      return console.log("Sound!", s);
+  require(["audio", "audiocue"], function(Audio, AudioCue) {
+    return Audio.onReady(function() {
+      window.A = Audio;
+      window.AC = AudioCue;
+      window.a = new Audio("sunday", "/sounds/sunday.mp3");
+      window.ac = new AudioCue(3, "thing");
+      ac.setAudio(a);
+      ac.loopStart = 3000;
+      ac.loopEnd = 6000;
+      return ac.numLoops = 3;
     });
   });
 

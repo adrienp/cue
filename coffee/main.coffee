@@ -12,22 +12,35 @@ require.config
                     url: "js/lib/soundmanager/swf"
                     flashVersion: 9
 
-require ["audio", "soundmanager"], (Audio, SM) ->
+require ["audio", "audiocue"], (Audio, AudioCue) ->
     # App Logic
 
     # a = new Audio(["sounds/alegria.mp3"])
 
     # a.play()
 
-    console.log SM
+    # console.log SM
 
-    SM.onready ->
-        console.log "Ready..."
+    # SM.onready ->
+    #     console.log "Ready..."
 
-        s = SM.createSound
-            id: 'sunday'
-            url: 'sounds/sunday.mp3'
+    #     s = SM.createSound
+    #         id: 'sunday'
+    #         url: 'sounds/sunday.mp3'
 
-        s.play()
+    #     s.play()
 
-        console.log "Sound!", s
+    #     console.log "Sound!", s
+
+    Audio.onReady ->
+        window.A = Audio
+        window.AC = AudioCue
+
+        window.a = new Audio("sunday", "/sounds/sunday.mp3")
+        window.ac = new AudioCue(3, "thing")
+
+        ac.setAudio(a)
+
+        ac.loopStart = 3000
+        ac.loopEnd = 6000
+        ac.numLoops = 3

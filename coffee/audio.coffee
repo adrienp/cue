@@ -1,28 +1,41 @@
 define ["soundmanager"], (SM) ->
 
     class Audio
-        constructor: (id, url, looping = false, volume = 1) ->
-            SM.onready =>
-                @sound = SM.createSound
-                    id: id
-                    url: url
-                    volume: volume * 100
-                    autoLoad: true
+        constructor: (id, url) ->
+            @sound = SM.createSound
+                id: id
+                url: url
+                autoLoad: true
 
-                @sound = new Howl
-                    url: urls
-                    loop: looping
-                    volume: volume
-                    autoplay: false
-                    onplay: ->
-                        console.log "Start"
-
-        play: () ->
+        play: ->
             @sound.play()
 
-        pause: () ->
+        pause: ->
             @sound.pause()
 
-        stop: () ->
+        stop: ->
             @sound.stop()
+
+        onLoad: (fn) ->
+            if @sound.loaded
+                fn()
+            else
+                @sound.load
+                    onload: fn
+
+        onPosition: (pos, fn) ->
+            @sound.onPosition pos, fn
+
+        setPosition: (pos) ->
+            @sound.setPosition pos
+
+        getDuration: ->
+            if @sound.loaded
+                @sound.duration
+            else
+                @sound.durationEstimate
+
+
+        @onReady = (fn) ->
+            SM.onready fn
 

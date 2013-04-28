@@ -4,31 +4,11 @@
     var Audio;
 
     return Audio = (function() {
-      function Audio(id, url, looping, volume) {
-        var _this = this;
-
-        if (looping == null) {
-          looping = false;
-        }
-        if (volume == null) {
-          volume = 1;
-        }
-        SM.onready(function() {
-          _this.sound = SM.createSound({
-            id: id,
-            url: url,
-            volume: volume * 100,
-            autoLoad: true
-          });
-          return _this.sound = new Howl({
-            url: urls,
-            loop: looping,
-            volume: volume,
-            autoplay: false,
-            onplay: function() {
-              return console.log("Start");
-            }
-          });
+      function Audio(id, url) {
+        this.sound = SM.createSound({
+          id: id,
+          url: url,
+          autoLoad: true
         });
       }
 
@@ -42,6 +22,36 @@
 
       Audio.prototype.stop = function() {
         return this.sound.stop();
+      };
+
+      Audio.prototype.onLoad = function(fn) {
+        if (this.sound.loaded) {
+          return fn();
+        } else {
+          return this.sound.load({
+            onload: fn
+          });
+        }
+      };
+
+      Audio.prototype.onPosition = function(pos, fn) {
+        return this.sound.onPosition(pos, fn);
+      };
+
+      Audio.prototype.setPosition = function(pos) {
+        return this.sound.setPosition(pos);
+      };
+
+      Audio.prototype.getDuration = function() {
+        if (this.sound.loaded) {
+          return this.sound.duration;
+        } else {
+          return this.sound.durationEstimate;
+        }
+      };
+
+      Audio.onReady = function(fn) {
+        return SM.onready(fn);
       };
 
       return Audio;
