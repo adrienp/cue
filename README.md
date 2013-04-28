@@ -1,4 +1,4 @@
-# Empty HTML5 project with Coffeescript and SASS set up
+# Cue Runner like QLab
 
 Run `./watchCoffee.sh` to start coffee compilation watching
 

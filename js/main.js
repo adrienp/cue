@@ -2,10 +2,36 @@
 (function() {
   require.config({
     paths: {
-      jquery: "lib/jquery-2.0.0"
+      jquery: "lib/jquery-2.0.0",
+      Howler: "lib/howler",
+      soundmanager: "lib/soundmanager/script/soundmanager2"
+    },
+    shim: {
+      soundmanager: {
+        exports: "soundManager",
+        init: function(SM) {
+          return soundManager.setup({
+            url: "js/lib/soundmanager/swf",
+            flashVersion: 9
+          });
+        }
+      }
     }
   });
 
-  require([], function() {});
+  require(["audio", "soundmanager"], function(Audio, SM) {
+    console.log(SM);
+    return SM.onready(function() {
+      var s;
+
+      console.log("Ready...");
+      s = SM.createSound({
+        id: 'sunday',
+        url: 'sounds/sunday.mp3'
+      });
+      s.play();
+      return console.log("Sound!", s);
+    });
+  });
 
 }).call(this);
