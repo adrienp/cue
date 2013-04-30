@@ -1,4 +1,6 @@
-define ["cue", "audio", "debug"], (Cue, Audio, debug) ->
+define ["cue", "audio", "debug", "ease"], (Cue, Audio, debug, ease) ->
+
+    FADE_STEP = 0.01
 
     class AudioCue extends Cue
         constructor: (number = "", name = "") ->
@@ -13,7 +15,24 @@ define ["cue", "audio", "debug"], (Cue, Audio, debug) ->
 
             @numLoops = 0
 
+            @properties = 
+                volume: 1
+                pan: 0
+
             debug.log "New AudioCue:", number, name
+
+        set: (property, value) ->
+            @properties[property] = value
+
+        fade: (to, time = 1, property = "volume", easing = ease.linear) ->
+            from = @properties[property]
+
+            numSteps = Math.ceil(Math.abs(to - from) / FADE_STEP)
+            dt = time / numSteps
+            # dp = 
+
+            # setInterval (=>
+            #     value = )
 
         setAudio: (audio) ->
             @audio = audio

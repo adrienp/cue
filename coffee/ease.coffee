@@ -1,0 +1,2 @@
+define
+    linear: (x) -> x

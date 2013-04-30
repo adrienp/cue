@@ -41,6 +41,6 @@ require ["audio", "audiocue"], (Audio, AudioCue) ->
 
         ac.setAudio(a)
 
-        ac.loopStart = 3000
+        ac.loopStart = 4000
         ac.loopEnd = 6000
-        ac.numLoops = 3
+        ac.numLoops = 0

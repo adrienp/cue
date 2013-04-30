@@ -6,6 +6,7 @@ define ["soundmanager"], (SM) ->
                 id: id
                 url: url
                 autoLoad: true
+                whileplaying: @_playingHandler
 
         play: ->
             @sound.play()
@@ -26,6 +27,9 @@ define ["soundmanager"], (SM) ->
         onPosition: (pos, fn) ->
             @sound.onPosition pos, fn
 
+        clearOnPosition: (pos, fn) ->
+            @sound.clearOnPosition pos, fn
+
         setPosition: (pos) ->
             @sound.setPosition pos
 
@@ -34,6 +38,9 @@ define ["soundmanager"], (SM) ->
                 @sound.duration
             else
                 @sound.durationEstimate
+
+        _playingHandler: (e) =>
+            console.log e
 
 
         @onReady = (fn) ->
